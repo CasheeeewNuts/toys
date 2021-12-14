@@ -8,6 +8,8 @@ class Interpreter {
                 when (ast.operator) {
                     Operator.Add -> lhs + rhs
                     Operator.Sub -> lhs - rhs
+                    Operator.Mul -> lhs * rhs
+                    Operator.Div -> lhs / rhs
                 }
             }
             is Expr.IntegerLiteral -> ast.value
