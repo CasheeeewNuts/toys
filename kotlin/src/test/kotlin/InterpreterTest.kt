@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 class InterpreterTest {
@@ -53,5 +54,28 @@ class InterpreterTest {
         )
 
         assertEquals(six / two, interpreter.interpret(ast))
+    }
+
+    @Test
+    fun testAssign1ToVariable() {
+        val interpreter = Interpreter()
+        val one = 1
+        val variableName = "var1"
+
+        val assignment = assign(variableName, int(one))
+        val result = interpreter.interpret(assignment)
+
+        assertEquals(one, result)
+
+        val ident = identify(variableName)
+        assertEquals(one, interpreter.interpret(ident))
+    }
+
+    @Test
+    fun testIdentifyUndefinedVariableThenThrownRuntimeException() {
+        val variableName = "var1"
+        val ident = identify(variableName)
+
+        assertThrows<RuntimeException> { interpreter.interpret(ident) }
     }
 }

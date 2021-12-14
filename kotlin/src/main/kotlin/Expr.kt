@@ -10,6 +10,8 @@ enum class Operator {
 sealed class Expr {
     data class Binary(val operator: Operator, val lhs: Expr, val rhs: Expr) : Expr()
     data class IntegerLiteral(val value: Int) : Expr()
+    data class Assignment(val identifier: String, val expr: Expr) : Expr()
+    data class Identifier(val name: String) : Expr()
 }
 
 fun add(lhs: Expr, rhs: Expr): Expr.Binary {
@@ -30,4 +32,12 @@ fun div(lhs: Expr, rhs: Expr): Expr.Binary {
 
 fun int(value: Int): Expr.IntegerLiteral {
     return Expr.IntegerLiteral(value)
+}
+
+fun assign(identifier: String, expr: Expr): Expr.Assignment {
+    return Expr.Assignment(identifier, expr)
+}
+
+fun identify(identifier: String): Expr.Identifier {
+    return Expr.Identifier(identifier)
 }
