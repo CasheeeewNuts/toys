@@ -250,4 +250,30 @@ class InterpreterTest {
     inner class TestWhileExpression {
 
     }
+
+    @Nested
+    inner class TestBlockExpression {
+        private val interpreter = Interpreter()
+
+        @Test
+        fun testBlock() {
+            val block: Expr = block(
+                listOf<Expr>(
+                    assign(
+                        "val1",
+                        add(
+                            int(1),
+                            int(2)
+                        )
+                    ),
+                    add(
+                        int(1),
+                        identify("val1")
+                    )
+                )
+            )
+
+            assertEquals(4, interpreter.interpret(block))
+        }
+    }
 }

@@ -20,6 +20,7 @@ sealed class Expr {
     data class Identifier(val name: String) : Expr()
     data class If(val condition: Expr, val thenClause: Expr, val elseClause: Expr?) : Expr()
     data class While(val condition: Expr, val body: Expr) : Expr()
+    data class Block(val elements: List<Expr>) : Expr()
 }
 
 fun add(lhs: Expr, rhs: Expr): Expr.Binary {
@@ -80,4 +81,8 @@ fun ifExpr(condition: Expr, thenClause: Expr, elseClause: Expr?): Expr.If {
 
 fun whileExpr(condition: Expr, body: Expr): Expr.While {
     return Expr.While(condition, body)
+}
+
+fun block(elements: List<Expr>): Expr.Block {
+    return Expr.Block(elements)
 }

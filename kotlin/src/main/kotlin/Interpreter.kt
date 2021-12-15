@@ -61,6 +61,15 @@ class Interpreter {
 
                 1
             }
+            is Expr.Block -> {
+                var result = 0
+
+                for (e in ast.elements) {
+                    result = interpret(e)
+                }
+
+                result
+            }
         }
     }
 }
