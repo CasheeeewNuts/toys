@@ -1,13 +1,14 @@
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
 import Interpreter.Boolean
-import org.junit.jupiter.api.Nested
 
 
 class InterpreterTest {
     private val interpreter = Interpreter()
+
     @Nested
     inner class TestFourArithmeticOperations {
         @Test
@@ -237,7 +238,7 @@ class InterpreterTest {
     inner class TestIfExpression {
         @Test
         fun testIf() {
-            val skeleton = { condition: Ast.Expr -> ifExpr(condition, int(Boolean.TRUE), int(Boolean.FALSE))}
+            val skeleton = { condition: Ast.Expr -> ifExpr(condition, int(Boolean.TRUE), int(Boolean.FALSE)) }
             val truthyCondition = equal(int(1), int(1))
             val falsyCondition = equal(int(1), int(2))
 
@@ -258,22 +259,75 @@ class InterpreterTest {
         @Test
         fun testBlock() {
             val block: Ast.Expr = block(
-                listOf(
-                    assign(
-                        "val1",
-                        add(
-                            int(1),
-                            int(2)
-                        )
-                    ),
+                assign(
+                    "val1",
                     add(
                         int(1),
-                        identify("val1")
+                        int(2)
                     )
+                ),
+                add(
+                    int(1),
+                    identify("val1")
                 )
             )
 
             assertEquals(4, interpreter.interpret(block))
+        }
+    }
+
+    @Nested
+    inner class TestFunctionDefinition {
+        @Test
+        fun testMainWithFactorial() {
+            val topLevels = listOf<Ast.TopLevel>(
+                /**
+                 * define main() {
+                 *  fact(5);
+                 * }
+                 */
+                defineFunction("main", listOf(),
+                    block(
+                        callFunction("fact", int(5))
+                    )
+                ),
+
+                /**
+                 * define fact(n) {
+                 *  if(n < 2) {
+                 *      1;
+                 *  } else {
+                 *      n * fact(n - 1);
+                 *  }
+                 */
+                defineFunction(
+                    "fact",
+                    listOf("n"),
+                    block(
+                        ifExpr(
+                            lessThan(
+                                identify("n"),
+                                int(2)
+                            ),
+                            int(1),
+                            mul(
+                                identify("n"),
+                                callFunction("fact",
+                                    sub(
+                                        identify("n"),
+                                        int(1)
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+
+            val program = Ast.Program(topLevels)
+            val result = interpreter.callMain(program)
+
+            assertEquals(120, result)
         }
     }
 }

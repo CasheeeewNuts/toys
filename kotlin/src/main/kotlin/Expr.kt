@@ -61,6 +61,14 @@ fun whileExpr(condition: Expr, body: Expr): Expr.While {
     return Expr.While(condition, body)
 }
 
-fun block(elements: List<Expr>): Expr.Block {
-    return Expr.Block(elements)
+fun block(vararg elements: Expr): Expr.Block {
+    return Expr.Block(elements.asList())
+}
+
+fun defineFunction(name: String, args: List<String>, body: Expr): Ast.TopLevel.FunctionDefinition {
+    return Ast.TopLevel.FunctionDefinition(name, args, body)
+}
+
+fun callFunction(name: String, vararg args: Expr): Expr.FunctionCall {
+    return Expr.FunctionCall(name, args.asList())
 }
