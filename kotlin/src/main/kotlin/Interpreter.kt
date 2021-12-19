@@ -124,6 +124,9 @@ class Interpreter {
                 is Ast.TopLevel.FunctionDefinition -> {
                     functionEnvironment[toplevel.name] = toplevel
                 }
+                is Ast.TopLevel.GlobalVariableDefinition -> {
+                    variableEnvironment[toplevel.name] = interpret(toplevel.expr)
+                }
             }
         }
 

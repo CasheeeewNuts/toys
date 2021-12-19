@@ -11,6 +11,7 @@ interface Ast {
     }
 
     sealed interface TopLevel {
+        data class GlobalVariableDefinition(val name: String, val expr: Expr) : TopLevel
         data class FunctionDefinition(val name: String, val args: List<String>, val body: Expr) : TopLevel
     }
 
