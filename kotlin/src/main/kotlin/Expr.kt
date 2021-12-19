@@ -1,42 +1,20 @@
 import kotlin.Int
-
-enum class Operator {
-    Add,
-    Sub,
-    Mul,
-    Div,
-    LessThan,
-    LessOrEqual,
-    GreaterThan,
-    GreaterOrEqual,
-    Equal,
-    NotEqual
-}
-
-sealed class Expr {
-    data class Binary(val operator: Operator, val lhs: Expr, val rhs: Expr) : Expr()
-    data class IntegerLiteral(val value: Int) : Expr()
-    data class Assignment(val identifier: String, val expr: Expr) : Expr()
-    data class Identifier(val name: String) : Expr()
-    data class If(val condition: Expr, val thenClause: Expr, val elseClause: Expr?) : Expr()
-    data class While(val condition: Expr, val body: Expr) : Expr()
-    data class Block(val elements: List<Expr>) : Expr()
-}
+import Ast.Expr
 
 fun add(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.Add, lhs, rhs)
+    return Expr.Binary(Operator.ADD, lhs, rhs)
 }
 
 fun sub(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.Sub, lhs, rhs)
+    return Expr.Binary(Operator.SUB, lhs, rhs)
 }
 
 fun mul(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.Mul, lhs, rhs)
+    return Expr.Binary(Operator.MUL, lhs, rhs)
 }
 
 fun div(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.Div, lhs, rhs)
+    return Expr.Binary(Operator.DIV, lhs, rhs)
 }
 
 fun int(value: Int): Expr.IntegerLiteral {
@@ -52,27 +30,27 @@ fun identify(identifier: String): Expr.Identifier {
 }
 
 fun lessThan(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.LessThan, lhs, rhs)
+    return Expr.Binary(Operator.LESS_THAN, lhs, rhs)
 }
 
 fun lessOrEqual(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.LessOrEqual, lhs, rhs)
+    return Expr.Binary(Operator.LESS_OR_EQUAL, lhs, rhs)
 }
 
 fun greaterThan(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.GreaterThan, lhs, rhs)
+    return Expr.Binary(Operator.GREATER_THAN, lhs, rhs)
 }
 
 fun greaterOrEqual(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.GreaterOrEqual, lhs, rhs)
+    return Expr.Binary(Operator.GREATER_OR_EQUAL, lhs, rhs)
 }
 
 fun equal(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.Equal, lhs, rhs)
+    return Expr.Binary(Operator.EQUAL, lhs, rhs)
 }
 
 fun notEqual(lhs: Expr, rhs: Expr): Expr.Binary {
-    return Expr.Binary(Operator.NotEqual, lhs, rhs)
+    return Expr.Binary(Operator.NOT_EQUAL, lhs, rhs)
 }
 
 fun ifExpr(condition: Expr, thenClause: Expr, elseClause: Expr?): Expr.If {

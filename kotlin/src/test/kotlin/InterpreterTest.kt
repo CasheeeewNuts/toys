@@ -237,7 +237,7 @@ class InterpreterTest {
     inner class TestIfExpression {
         @Test
         fun testIf() {
-            val skeleton = { condition: Expr -> ifExpr(condition, int(Boolean.TRUE), int(Boolean.FALSE))}
+            val skeleton = { condition: Ast.Expr -> ifExpr(condition, int(Boolean.TRUE), int(Boolean.FALSE))}
             val truthyCondition = equal(int(1), int(1))
             val falsyCondition = equal(int(1), int(2))
 
@@ -257,8 +257,8 @@ class InterpreterTest {
 
         @Test
         fun testBlock() {
-            val block: Expr = block(
-                listOf<Expr>(
+            val block: Ast.Expr = block(
+                listOf(
                     assign(
                         "val1",
                         add(
