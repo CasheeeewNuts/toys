@@ -1,5 +1,3 @@
-import kotlin.test.assertEquals
-
 fun main(args: Array<String>) {
     val interpreter = Interpreter()
     val ast = add(
@@ -12,5 +10,4 @@ fun main(args: Array<String>) {
 
     val result = interpreter.interpret(ast)
     println(result)
-    assertEquals(6, result)
 }
