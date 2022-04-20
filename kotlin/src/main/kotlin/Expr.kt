@@ -4,7 +4,13 @@ enum class Operator {
     Add,
     Sub,
     Mul,
-    Div
+    Div,
+    LessThan,
+    LessOrEqual,
+    GreaterThan,
+    GreaterOrEqual,
+    Equal,
+    NotEqual
 }
 
 sealed class Expr {
@@ -40,4 +46,28 @@ fun assign(identifier: String, expr: Expr): Expr.Assignment {
 
 fun identify(identifier: String): Expr.Identifier {
     return Expr.Identifier(identifier)
+}
+
+fun lessThan(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.LessThan, lhs, rhs)
+}
+
+fun lessOrEqual(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.LessOrEqual, lhs, rhs)
+}
+
+fun greaterThan(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.GreaterThan, lhs, rhs)
+}
+
+fun greaterOrEqual(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.GreaterOrEqual, lhs, rhs)
+}
+
+fun equal(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.Equal, lhs, rhs)
+}
+
+fun notEqual(lhs: Expr, rhs: Expr): Expr.Binary {
+    return Expr.Binary(Operator.NotEqual, lhs, rhs)
 }

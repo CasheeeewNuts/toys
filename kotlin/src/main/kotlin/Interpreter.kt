@@ -1,5 +1,9 @@
 class Interpreter {
-    var environment: MutableMap<String, Int> = mutableMapOf()
+    private var environment: MutableMap<String, Int> = mutableMapOf()
+    companion object {
+        const val TRUE = 1
+        const val FALSE = 0
+    }
 
     fun interpret(ast: Expr): Int {
         return when (ast) {
@@ -12,6 +16,12 @@ class Interpreter {
                     Operator.Sub -> lhs - rhs
                     Operator.Mul -> lhs * rhs
                     Operator.Div -> lhs / rhs
+                    Operator.LessThan -> if (lhs < rhs) TRUE else FALSE
+                    Operator.LessOrEqual -> if (lhs <= rhs) TRUE else FALSE
+                    Operator.GreaterThan -> if (lhs > rhs) TRUE else FALSE
+                    Operator.GreaterOrEqual -> if (lhs >= rhs) TRUE else FALSE
+                    Operator.Equal -> if (lhs == rhs) TRUE else FALSE
+                    Operator.NotEqual -> if (lhs != rhs) TRUE else FALSE
                 }
             }
             is Expr.IntegerLiteral -> ast.value
