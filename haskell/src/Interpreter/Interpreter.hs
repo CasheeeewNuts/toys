@@ -17,4 +17,5 @@ interpret ast =
             case ope of
               Add -> Right $ lv + rv
               Sub -> Right $ lv - rv
+              Div -> if rv /= 0 then Right $ lv / rv else Left "0 division!"
     IntegerLiteral v -> Right $ int2Double v
