@@ -48,6 +48,19 @@ class Interpreter {
                     1
                 }
             }
+            is Expr.While -> {
+                while (true) {
+                    val condition = interpret(ast.condition)
+
+                    if (condition != FALSE) {
+                        interpret(ast.body)
+                    } else {
+                        break
+                    }
+                }
+
+                1
+            }
         }
     }
 }

@@ -246,4 +246,9 @@ class InterpreterTest {
             assertEquals(FALSE, interpreter.interpret(skeleton(falsyCondition)))
         }
     }
+
+    @Nested
+    inner class TestWhileExpression {
+
+    }
 }
