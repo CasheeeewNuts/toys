@@ -1,6 +1,6 @@
 class Interpreter {
     private var environment: MutableMap<String, Int> = mutableMapOf()
-    companion object {
+    object Boolean {
         const val TRUE = 1
         const val FALSE = 0
     }
@@ -16,12 +16,12 @@ class Interpreter {
                     Operator.Sub -> lhs - rhs
                     Operator.Mul -> lhs * rhs
                     Operator.Div -> lhs / rhs
-                    Operator.LessThan -> if (lhs < rhs) TRUE else FALSE
-                    Operator.LessOrEqual -> if (lhs <= rhs) TRUE else FALSE
-                    Operator.GreaterThan -> if (lhs > rhs) TRUE else FALSE
-                    Operator.GreaterOrEqual -> if (lhs >= rhs) TRUE else FALSE
-                    Operator.Equal -> if (lhs == rhs) TRUE else FALSE
-                    Operator.NotEqual -> if (lhs != rhs) TRUE else FALSE
+                    Operator.LessThan -> if (lhs < rhs) Boolean.TRUE else Boolean.FALSE
+                    Operator.LessOrEqual -> if (lhs <= rhs) Boolean.TRUE else Boolean.FALSE
+                    Operator.GreaterThan -> if (lhs > rhs) Boolean.TRUE else Boolean.FALSE
+                    Operator.GreaterOrEqual -> if (lhs >= rhs) Boolean.TRUE else Boolean.FALSE
+                    Operator.Equal -> if (lhs == rhs) Boolean.TRUE else Boolean.FALSE
+                    Operator.NotEqual -> if (lhs != rhs) Boolean.TRUE else Boolean.FALSE
                 }
             }
             is Expr.IntegerLiteral -> ast.value
@@ -40,7 +40,7 @@ class Interpreter {
             is Expr.If -> {
                 val condition = interpret(ast.condition)
 
-                return if (condition != FALSE) {
+                return if (condition != Boolean.FALSE) {
                     interpret(ast.thenClause)
                 } else if (ast.elseClause != null){
                     interpret(ast.elseClause)
@@ -52,7 +52,7 @@ class Interpreter {
                 while (true) {
                     val condition = interpret(ast.condition)
 
-                    if (condition != FALSE) {
+                    if (condition != Boolean.FALSE) {
                         interpret(ast.body)
                     } else {
                         break

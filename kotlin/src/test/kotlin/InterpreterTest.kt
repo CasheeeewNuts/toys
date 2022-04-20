@@ -2,8 +2,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
-import Interpreter.Companion.TRUE
-import Interpreter.Companion.FALSE
+import Interpreter.Boolean
 import org.junit.jupiter.api.Nested
 
 
@@ -113,9 +112,9 @@ class InterpreterTest {
                 greater
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement2))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement2))
         }
 
         @Test
@@ -139,9 +138,9 @@ class InterpreterTest {
                 lesser
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(TRUE, interpreter.interpret(trueStatement2))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement2))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
         }
 
         @Test
@@ -164,9 +163,9 @@ class InterpreterTest {
                 greater
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement2))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement2))
         }
 
         @Test
@@ -190,9 +189,9 @@ class InterpreterTest {
                 greater
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(TRUE, interpreter.interpret(trueStatement2))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement2))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
         }
 
         @Test
@@ -210,8 +209,8 @@ class InterpreterTest {
                 lesser
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
         }
 
         @Test
@@ -229,8 +228,8 @@ class InterpreterTest {
                 greater
             )
 
-            assertEquals(TRUE, interpreter.interpret(trueStatement))
-            assertEquals(FALSE, interpreter.interpret(falseStatement))
+            assertEquals(Boolean.TRUE, interpreter.interpret(trueStatement))
+            assertEquals(Boolean.FALSE, interpreter.interpret(falseStatement))
         }
     }
 
@@ -238,12 +237,12 @@ class InterpreterTest {
     inner class TestIfExpression {
         @Test
         fun testIf() {
-            val skeleton = { condition: Expr -> ifExpr(condition, int(TRUE), int(FALSE))}
+            val skeleton = { condition: Expr -> ifExpr(condition, int(Boolean.TRUE), int(Boolean.FALSE))}
             val truthyCondition = equal(int(1), int(1))
             val falsyCondition = equal(int(1), int(2))
 
-            assertEquals(TRUE, interpreter.interpret(skeleton(truthyCondition)))
-            assertEquals(FALSE, interpreter.interpret(skeleton(falsyCondition)))
+            assertEquals(Boolean.TRUE, interpreter.interpret(skeleton(truthyCondition)))
+            assertEquals(Boolean.FALSE, interpreter.interpret(skeleton(falsyCondition)))
         }
     }
 
