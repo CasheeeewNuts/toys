@@ -12,6 +12,9 @@ add lhs rhs = Binary Add lhs rhs
 sub :: Expr -> Expr -> Expr
 sub lhs rhs = Binary Sub lhs rhs
 
+mul :: Expr -> Expr -> Expr
+mul lhs rhs = Binary Mul lhs rhs
+
 div :: Expr -> Expr -> Expr
 div lhs rhs = Binary Div lhs rhs
 
