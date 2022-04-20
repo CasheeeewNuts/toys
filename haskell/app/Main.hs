@@ -2,9 +2,9 @@ module Main where
 
 import Lib
 import Interpreter.Interpreter
-import Interpreter.Ast.Ast
+import Interpreter.Ast.Expr
 
-ast = add (int 1) (Interpreter.Ast.Ast.div (int 1) (int 3))
+ast = add (Interpreter.Ast.Expr.div (int 1) (int 0)) (int 1)
 
 main :: IO ()
 main = do

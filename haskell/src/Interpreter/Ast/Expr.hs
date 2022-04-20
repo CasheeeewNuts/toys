@@ -1,8 +1,10 @@
-module Interpreter.Ast.Ast where
+module Interpreter.Ast.Expr where
 
 import Interpreter.Ast.Operator
 
-data Expr = Binary Operator Expr Expr | IntegerLiteral Int deriving (Show)
+data Expr = Binary Operator Expr Expr 
+  | IntegerLiteral Int
+  deriving (Show)
 
 add :: Expr -> Expr -> Expr
 add lhs rhs = Binary Add lhs rhs
