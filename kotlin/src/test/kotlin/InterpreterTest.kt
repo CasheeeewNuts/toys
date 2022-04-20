@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Nested
 
 
 class InterpreterTest {
+    private val interpreter = Interpreter()
     @Nested
     inner class TestFourArithmeticOperations {
-        private val interpreter = Interpreter()
-
         @Test
         fun testAdd1To1() {
             val one = 1
@@ -94,8 +93,6 @@ class InterpreterTest {
 
     @Nested
     inner class TestComparisonOperator {
-        private val interpreter = Interpreter()
-
         @Test
         fun testLessThan() {
             val greater = int(2)
@@ -234,6 +231,19 @@ class InterpreterTest {
 
             assertEquals(TRUE, interpreter.interpret(trueStatement))
             assertEquals(FALSE, interpreter.interpret(falseStatement))
+        }
+    }
+
+    @Nested
+    inner class TestIfExpression {
+        @Test
+        fun testIf() {
+            val skeleton = { condition: Expr -> ifExpr(condition, int(TRUE), int(FALSE))}
+            val truthyCondition = equal(int(1), int(1))
+            val falsyCondition = equal(int(1), int(2))
+
+            assertEquals(TRUE, interpreter.interpret(skeleton(truthyCondition)))
+            assertEquals(FALSE, interpreter.interpret(skeleton(falsyCondition)))
         }
     }
 }

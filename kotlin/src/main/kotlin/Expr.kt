@@ -18,6 +18,7 @@ sealed class Expr {
     data class IntegerLiteral(val value: Int) : Expr()
     data class Assignment(val identifier: String, val expr: Expr) : Expr()
     data class Identifier(val name: String) : Expr()
+    data class If(val condition: Expr, val thenClause: Expr, val elseClause: Expr?) : Expr()
 }
 
 fun add(lhs: Expr, rhs: Expr): Expr.Binary {
@@ -70,4 +71,8 @@ fun equal(lhs: Expr, rhs: Expr): Expr.Binary {
 
 fun notEqual(lhs: Expr, rhs: Expr): Expr.Binary {
     return Expr.Binary(Operator.NotEqual, lhs, rhs)
+}
+
+fun ifExpr(condition: Expr, thenClause: Expr, elseClause: Expr?): Expr.If {
+    return Expr.If(condition, thenClause, elseClause)
 }

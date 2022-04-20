@@ -37,6 +37,17 @@ class Interpreter {
 
                 result
             }
+            is Expr.If -> {
+                val condition = interpret(ast.condition)
+
+                return if (condition != FALSE) {
+                    interpret(ast.thenClause)
+                } else if (ast.elseClause != null){
+                    interpret(ast.elseClause)
+                } else {
+                    1
+                }
+            }
         }
     }
 }
